@@ -1,0 +1,11 @@
+https://trunkbaseddevelopment.com
+
+Trunk based development only has the trunk (and release branches) as long-living.
+
+When a developer is going to create a feature, they fork off of the trunk and merge back when finished, or even just commit directly to the trunk. This helps fulfil the CI concept that everyone should be merging back to a central branch every 24 hours, and prevents major drift that can occur in long-lived feature branches.
+
+This is a key enabler of a true CI / CD pipeline.
+
+If needed, release branches can be forked from the trunk and independently hardened for release.
+
+Feature flags are key in this method of working.
