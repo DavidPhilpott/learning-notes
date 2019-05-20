@@ -1,0 +1,377 @@
+The AWS Well-Architected Framework documents questions that allow you evaluate architecture choices and promote best practices.
+
+
+//Introduction//
+
+The framework is based on five pillars:
+Operational Excellence
+	Being able to run systems that deliver business value and improve processes.
+Security
+	Being able to protect systems and information.
+Reliability
+	Being able to recover from system failures and scale to meet demand.
+Performance Efficiency
+	Being able to use resources efficiently and meet demand.
+Cost Optimization
+	Running systems and providng value at the lowest price.
+
+Designing an architecture will require prioritising the pillars and making tradeoffs.
+However, don't de-fund security and operational excellence.
+
+The following is a list of architectural artifacts referenced in the whitepaper:
+Component:
+	This is the code, configurations, and AWS resources that combine to deliver a requirement.
+	Typically the unit of technical ownership and decoupled form other components.
+Workload:
+	A group of components that work together to deliver business value.
+	Level that teach leaders will likely discuss the project / system.
+Milestones:
+	Moments of key change in the architecture as it evolves through the product lifecycle.
+	e.g. design -> testing -> staging -> production
+Architecture:
+	How components are arranged to deliver a workload.
+Technology Portfolio:
+	The full set of workloads to be delivered that allow the business to run.
+
+On-prem teams usually have a centralised team driving the architectural choices across the tech portfolio.
+AWS advises to decentralise by embeding architects and architectural decisions in teams.
+Adherence to general architectural approaches and quality can be maintained by documenting best practices and created automated testing.
+
+The framework specifies a set of design principles:
+Stop Guessing Your Capacity Needs:
+	Capacity decisions can often lead to idle resources or under-performing systems.
+	Properly leveraging the cloud means resource allocation can automatically scale to meet demand.
+Test Systems at Production:
+	The cloud allows for scalable test envs to be built and torn down at will.
+	Features and systems can be tested in full prod simulations and torn down as the test completes.
+Automated to Mark Architectural Experimentation Easier:
+	The cloud embraces infra-as-code, reducing manual effort and enabling infra verison control.
+	Systems can be replicated and changed for low cost.
+	Changes made to infra can be rolled back easily.
+Allow for Revolutionary Architectures:
+	Non-Cloud architectural changes are made rarely.
+	The flexibility of the cloud enables the design to change quickly, allowing the system to meet changing business needs.
+	Cloud capability to automate and test infrastructure lowers risk of impact from changes.
+Drive Architecture Using Data:
+	In the cloud, data is available on how architectural decisions are affecting the behaviour of workload.
+	This data can drive decisions on architectural evolution.
+Improve Through Game Days:
+	Use regular hackathons and challenge days to improve organisational understanding of team and architectural performance across a variety of business challenges.
+	Use this knowledge to drive improvements to real architecture.
+
+
+//Operational Excellence// - Prepare, Operate, Evolve
+
+The ability to run and monitor system which deliver business value and improve supporting processes.
+Creates and uses procedures to respond to operational events.
+Collects KPIs to masure performance against business needs.
+Designed to support changes and implement lessons learned.
+
+OpEx. has six design principles:
+Perform Operations as Code:
+	Define the entire workload (apps, infra) as code.
+	Implement operational procedures as code and trigger them with events.
+	This limits human error, enables version control, and improves consistency.
+Annotate Documentation:
+	In the cloud, annotated documentation can be automatically created each build.
+	This documentation can also be used as input into operations code.
+Mark Frequent, Small, Reversible Changes:
+	Update components reguarly, and make the changes small and reversible.
+Refine Operations Procedures Frequently:
+	Observe and improve operational procedures.
+	Simulate them in gamedays to test them.
+Anticipate Failure:
+	Conduct 'pre-mortem' exercises to identify potential points of failure.
+	Remove them or mititgate their impact.
+	Test and train reponse procedures.
+Learn from all operational failures:
+	Implement lessons learned and share knowledge across the organisation.
+
+The three best practices of OpEx are:
+Prepare
+	Business success is enabled by shared goals and understanding
+	Common standards simplify design and management.
+		But keep these to a minimum.
+	Design workloads with monitoring at the app, platform, infrastructure, component, and cusomter experence level.
+		Amazon CloudWatch, AWS CLoudTrail, and VPC Dlow Logs can capture network flow logs.
+	Create tests to validate that changes can be made to prod and are operationally supported.
+		Check that the workload meets standards.
+		Check that required procedures are documented.
+		Check that there are personnel avilable to support the workload.
+		Test reponses to operational failures.
+	Implement operations activities as code.
+	AWS CloudFormation can create templates based on best practices.
+	AWS Config andAWS Configrules can create standards for workloads and test them for compliance.
+Operate
+	Define expectations and how success will be measured.
+	Establish baselines in order to measure performance changes.
+	Use metrics to identify areas of improvement.
+	Each layer of the worklaod should emit information about its health and performance.
+	Create playbooks for well-understood events.
+	Identify owners, procedures, and escalation paths for alerts.
+	Communicate operational status to business through dashboards.
+	Identify root cause of unplanned events and incorporate into procedures.
+	Automate manual processes and responses, especially deployment, releases, changes, and rollbacks.
+	Amazon CloudWatch is key in monitoring operational health of a workload.
+Evolve
+	Evolution is required to sustain operationa excellence. Devote time to incremental improvements.
+	Share lessons learned across teams.
+	Make frequent, small improvemets.
+	Provide safe environments with space to experiment and test.
+	Learn from failures and mistakes.
+	Amazon Elasticsearch can quickly analyse log data to produce actionable intel.
+
+
+//Security//
+
+Protects informtion and systems.
+Identifies and mitigates risks.
+
+There are seven design principles for Security:
+Strong Identity Foundation
+	Use the principle of least privilege and seperate duties
+	Centralise privilege management.
+	Reduce use of long-term credentials.
+Enable Traceability:
+	Monitor and audit change to environments in real time.
+	Integrate logs and metrics with response sstem to enable atomated responses.
+Apply Security at All Layers:
+	Don't just protect the outer layer of the system.
+	Build security at the edge network, VPC, Subnet, Load Balancer, Instance, OS, and Application levels.
+Automate Best Practices:
+	Implement automated systems which enforce security.
+	Security-as-code, leveraging version control.
+Protect Data in Transit and at Rest:
+	Classify data by sensitivity level.
+	Use encryption, tokenisation, and access control to protect data.
+Keep People Away from Data:
+	Create tools that remove the need for direct access to data. This reduces the risk of loss and errata.
+Prepare For Security Events:
+	Run incident response simulations reguarly.
+	Use automated tools to increase speed of detection and recovery.
+
+Security has five best practice areas:
+Identity and Access Management
+	Ensure that only autorised users are able to access resources and services.
+	Define users, groups, services, and roles (along with the permissions for each).
+	Define different credential sets for different components.
+	Centralise identity management. AWS Organisations can cover multiple accounts.
+	Implement strong credential management, including MFA.
+	Root Account should have MFA and no access keys.
+	This is achieved through AWS Identity and Access Management (IAM).
+	AWS credentials include passwords, tokens, and keys.
+	Programmatic access should be via temporary tokens, utilising the AWS Security Token Service.
+Detective Controls
+	Detective controls identify potential security threats and incidents.
+	Examples include taking an invetory of assets and their attributes, as well as auditing internal processes and designs.
+	Capture and analyze events from logs and metrics to gain visibility, then take action on trheats.
+	In AWS, use logs and events from CloudTrail, AWS API calls, Cloudwatch metrics, and AWS Config history.
+	Can also log service-level actions - e.g. using S3 to store logs of access requests.
+	Amazon GuardDuty is a solution provided by AWS to monitor for anomalous activity.
+Infrastructure Protection
+	Covers control methods necessary to meet best practices and regulations.
+	Limit workload exposure to the internet.
+	AWS can allow packet inspection.
+	Amazon VPC can create independent virtual networks, which can controleld through gateways, routing tables, and subnets.
+	AWS Shield can mitigate DDoS.
+	AWS WAF is a web application firewall.
+	Public and private networks require multiple layers of defense.
+	Use comprehensive logging and monitoring, espcially over access points to compute and storage resources.
+	Can create a hardened Amazon Machine Image. All future insatnces using this AMI will then be hardened.
+Data Protection
+	Classify data by sensitivity to enable differentiate access.
+	Amazon Macie can automatically discover, classify, and protect sensitive data.
+	AWS Key Management Service can help control the keys used in an application.
+	Encrypt data at rest and in transit to prevent reading by unathorised users.
+	S3, RDS, ELB, and EBS have server-side-encryption, and Elastic Load Balancing can implement SSL (HTTPS)
+	Reguarly rotate encyrption keys (automatable by AWS).
+	Detailed logging of file access.
+	Services such as S3 and Glacier provide high durability.
+	Versioning can protect against accidental deletes / overwrites etc.
+Incident Response
+	Implement tools and access ahead of security incidents.
+	Reguarly practice incident response.
+	Automate reponses to given triggers.
+	Have a trusted environment and toolset avilable for forensics.
+
+
+//Reliability//
+
+Ability to mititgate disruptions, recover from service outages, and scale to to meet demand.
+
+Reliability has five design principles:
+Test Recovery Procedures:
+	Testing is usually conducted to prove the system works, but not to see how a system recovers from failure.
+	Use cloud infrastructure automation to simulate various failure scenarios and identify failure pathways.
+	These identified pathways can be rectified before they occur in prod.
+Automatically Recover from Failure:
+	Use KPIs attahced to a system to identify when a threshold is crossed.
+	This can trigger notification and tracking, as well as automate recovery procedures.
+	Early warning thresholds can be monitored for, so the system can automatically adjust to avoid failure.
+Scale Horizontally to Increase Aggregate System Availability:
+	Replace single large resources with multiple small resources.
+	Removes single-points-of-failure, and lessens impact of single instance failures.
+Stop Guessing Capacity:
+	Resource saturation is a common cause of failure.
+	Cloud instances can be spun up and torn down quickly and at-will, allowing the system to adjust to demand.
+Manage Change in Automation:
+	Changes to infrastructure should be done via automation / code and version controlled.
+
+Reliability has three areas of best practice:
+Foundations:
+	Leverage the cloud to scale networking, compute, and storage capacity as needed.
+	Service limits can prevent over-provisioning of resources.
+	Limits on API operations to protect services from abuse.
+	AWS Trusted Advisor provides visibility of service limits.
+	AWS Shield can protect instances running in AWS from DDoS.
+Change Management:
+	Use monitoring to identify when a change can cause capacity and SLA issues.
+	Automate responses to KPIs - e.g. provisioning extra resources to meet increasing demand, recovering from failures etc.
+	Amazon Auto Scaling can cover utomated demand management for workloads.
+	CloudWatch can altert based on metrics.
+	Control who can make system changes and maintain logs.
+	CloudTrail can record AWS API calls and deliver log files.
+	AWS Config provides an invetory of resources and configurations, including changes.
+	Result of uncontrolled changes are difficult to predict.
+	Use logs to diagnose causes of failure and incorporate into automated responses.
+Failure Management:
+	Failures will occur in any complex system. Find out why these occur and prevent them from occuring again.
+	Use automation to respond to monitoring data.
+	Use automation to replace fialure resources with new ones, and quarantine the failure for examination.
+	Simulate various failure cases to verify resilience, especially after significant changes.
+	Use backups of data. apps, and OS to meet MTTR and recovery point / time objectives (RPO / RTO).
+	S3 provides highly durable storage, and Glacier provides durable archives.
+	AWS KMS is a key management service that integrates with many other AWS services.
+	Verify that the system can be rebuilt from backups (Disaster Recovery).
+	Due to low cloud cost, test entire-system stand-up and recovery procedures.
+	Ensure a gap between current usage and service limit in case failover occurs.
+
+
+//Performance Efficiency//
+
+Ability to use resource efficiently to meet requirements, and maintain efficiency as demand and technology changes.
+
+Performance efficiency has five design principles:
+Democratise Advanced Technologies:
+	Many difficult to implement technologies are available as services when in the Cloud Domain.
+	This pushes all the complexity of hosting and scaling to the vendor.
+Go Global in Minutes:
+	Cloud infrastructure can be replicated to multiple regions, easily providing low-latency to global customers.
+Use Serverless Architectures:
+	Serverless architecutres remove the need to maintain servers. E.g. storage servers can act as static websites, event servcies can host code.
+Experiment More Often:
+	Virtual resources allow for rapid comparative testing of instance types and configurations.
+	Reguarly review choices to take adventage of evolving cloud
+Mechanical Sympathy:
+	Use the tech approach that aligns best to goals. E.g. consider data access patterns when choosing storage solution.
+	Use monitoring to identify points of improvement and deviation from expected performance.
+	Make use of situational tradeoffs to improve performance. E.g. caching, compression etc.
+
+Performance efficiency has four best practice areas:
+Selection:
+	Optimal solution will be bespoke for situation.
+	Leverage virtualisation of the cloud to refine instance types and configs.
+	Use data gathered through benchmarking and testing to drive decisions.
+	Well-architected systems will use multiple solutions and features to improve performance.
+	Use managed services to easily access high performance. E.g. Dynamo DB for a single-digit latency NoSQL database.
+	AWS Solutions Architects, AWS Reference Architectures, and AWS Partner Network (APN) can help with architecure decisons.
+	Selection of resource types will occur acorss the following four broad categories:
+	Compute:
+		Incorrect solution of compute will impair performance.
+		Compute comes in three forms in AWS: Instances, containers, and functions.
+		Instances are VMs, so capabilities can be changed quickly, including SSDs and GPUs.
+		Containers allow apps to be run in a resource-isolated process.
+		Functions abstract away underlying infrastructre, and allow serverless execution of code.
+		Leverage ability to easily scale compute to meet demand via auto-scaling.
+	Storage:
+		Optimal solution will depend on access method, pattern of access, throughput, avilability, and durability.
+		Match storage needs with avilable service options.
+		Can switch storage between instances easily.
+		S3 provides high durability.
+	Database:
+		Optimal solution will depend on access method, pattern of access, throughput, avilability, query load.
+		RDS provides managed relational databases.
+		Redshift is a petabyte-scale datawarehouse with scalable compute and capacity.
+		DynamoDB provides single-digit milisecond NoSQL at any scale.
+		Use data-driven-decision making to choose storage. Do not rely on business defaults.
+	Networking:
+		Physical location of user will drive location options - place resources close to where they will be used.
+		Many services offer specialised networking. E.g. EBS-Optimised instances, S3 transfer acceleration etc
+		Specific networking services include Amazon Route 53 for latency routing, Amazon VPC, and AWS Direct Connect for distance-reduction.
+Review
+	Networking in AWS is currently reasonably limited.
+	Be aware of bottlenecks in architecutre, and experiment with new releases to solve the issues.
+Monitoring
+	Monitor performance metrics to ensure performance. Set up alerts for thresholds.
+	Use automation to correct performance issues when thresholds are breached.
+	CloudWatch can monitor and send notification alarms. Automation actions can be triggered in Kinesis, SQS, and Lambda.
+	Do not allow too many false positives. Use automation and thresholds to prevent premature human remediation actions.
+	Simulate performance issues to test monitoring and automation.
+Tradeoffs
+	Can trade consistency, durability, and space vs. time and latency.
+	Can dynamically add read-only replicas in high demand locations.
+	Can use caching (via. ElastiCache for in-memory, and CloudFront for sattic content near users).
+	DynamoDB Accelerator (DAX) provides caching for DynamoDB. Sub-millisecond latency for items in the cache.
+	Implementing tradeoffs can increase architecture complexity. Load test to ensure benefits gain is worthwile.
+
+
+//Cost Optimisation//
+
+The ability to run systems to deliver business value at the lowest price point. Must prioirtise 'type' of cost savings e.g. is it better to spend now and hit market early?
+
+Cost optimisation has five design principles:
+Adopt a Consumption Model:
+	Provision only the resources needed, scaling automatically to meet demand.
+	Dev and Test envs. are typically only used during working hours. Stopping these resources outside of those times means a 75% saving.
+Measure Overall Efficiency:
+	Measure the business output of thr workload and the cost of delivering it.
+Stop Spending Money on Datacenter OperationsL
+	Using cloud means no cost / time associated with maintaining physical infrastructure.
+Analyse and Attribute Expenditure:
+	Can identify and categorise cloud cost, attributing granular expenses to business owners.
+	Can measure return-on-investment and drive optimisation.
+Use Managed and Application Level Services to Reduce Cost of Ownership:
+	Using products as cloud services removes operational burden for many tasks, and can be bought at cloud-scale prices.
+
+Cost Optimisation has four areas of best practice:
+Expenditure Awareness:
+	Changes to cloud infrastructure can be made far quicker than on-prem. This can cause over-provisioning.
+	Resources and usage can also be attributed to business owners via tagging. This ownership drives optimisation.
+	Accurate cost-attributation can identify which workloads are profitable and drive budget allocation.
+	AWS Cost Explorer provides a service to track spend. Cost allocation tags can enhance this. 
+	AWS Budgets can send alerts if usage costs are not in line with expectations.
+	Include end-of-life and lifecycle in project development to ensure unsued resources are shut down.
+Cost-Effective Resources:
+	Using managed services can reduced cost by removing operational burden.
+	On-Demand allows for pay-per-hour compute capacity.
+	Reserved instances enabled resvered capacity at a discount of up to 75% off on-demand pricing.
+	Spot instances can leverage unused EC2 instances and save of up to 90% off on-demand pricing. 
+	Note that spot is only viable when individual servers can come and go.
+	Can use CloudFront to minimise data trasnfer.
+	Can use Aurora to eliminate DB license costs.
+Matching supply and demand:
+	Optimal ratio is supply slightly exceeding demand, to account for future provisioning time and service failures.
+	Auto-Scaling in AWS allows resources to be dynamically created and destroyed to match demand.
+	Include known patterns of usage etc.
+	Metrics sourced from AWS CloudWatch and TrustedAdvisor can help determine demand.
+Optimizing Over Time:
+	Review architectural decisons as AWS release new features.
+	When requirements change, aggressively decommission unneeded resources and services.
+
+
+//Review Process//
+
+An Architectural review seeks to identify any critical issues or areas that can be improved. The outcome should be a set of actions that will improve the customer experience.
+Each team should take ownership of the quality of their architecture. Teams should be encouraged to continuously review their architecture against the Well-Architected Framework.
+
+Architectural reviews should be:
+Blame-free
+Lightweight (hours not days)
+Deep-dives
+
+They should occur at key milestones, including early in the design lifecycle to avoid becomming trapped by bad architecture, and also before go-live.
+
+As workload requirements and architecture change, reviews can help keep the architecure clean and focused, preventing it from degrading as it evolves.
+
+A well-architected review is often the first time a team will truly understand what they have designed and built. If multipe reviews tend to bring up the same sets of issues, then the team may benefit from trianing in that area.
+

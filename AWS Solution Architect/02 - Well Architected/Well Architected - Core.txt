@@ -1,0 +1,37 @@
+The well architected framework is based on five pillars:
+operational excellence
+security
+reliability
+performance efficiency
+cost optimization
+
+The white paper for the framework as a whole:
+https://d1.awsstatic.com/whitepapers/architecture/AWS_Well-Architected_Framework.pdf
+
+Whitepapers by framework pillar:
+Operational Excellence: https://d1.awsstatic.com/whitepapers/architecture/AWS-Operational-Excellence-Pillar.pdf
+Security: https://d1.awsstatic.com/whitepapers/architecture/AWS-Security-Pillar.pdf
+Cost Optimisation: https://d1.awsstatic.com/whitepapers/architecture/AWS-Cost-Optimization-Pillar.pdf
+Reliability: https://d1.awsstatic.com/whitepapers/architecture/AWS-Reliability-Pillar.pdf
+Performance Efficiency: https://d1.awsstatic.com/whitepapers/architecture/AWS-Performance-Efficiency-Pillar.pdf
+
+
+Training course:
+https://www.aws.training/transcript/curriculumplayer?transcriptId=-kis3CViX0eK5cvKGAHAbw2
+
+Additional Security Sources:
+https://d0.awsstatic.com/whitepapers/Security/AWS%20Security%20Whitepaper.pdf
+https://aws.amazon.com/whitepapers/aws-security-best-practices/
+https://d0.awsstatic.com/whitepapers/compliance/AWS_Risk_and_Compliance_Whitepaper.pdf
+https://docs.aws.amazon.com/kms/latest/developerguide/overview.html
+
+Additional Reliability Sources:
+http://d0.awsstatic.com/whitepapers/managing-your-aws-infrastructure-at-scale.pdf
+https://media.amazonwebservices.com/AWS_Disaster_Recovery.pdf
+https://www.youtube.com/watch?v=wrY7XoOnysg
+
+Additional Performance Sources:
+https://docs.aws.amazon.com/AmazonS3/latest/dev/optimizing-performance.html
+https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSPerformance.html
+https://www.youtube.com/watch?v=n28lDDdlnVg
+https://www.youtube.com/watch?v=mZy6E2I5Rek

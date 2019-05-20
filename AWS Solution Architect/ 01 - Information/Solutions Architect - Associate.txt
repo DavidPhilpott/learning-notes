@@ -1,0 +1,10 @@
+Focus on Well-Architected, Amazon EC2, Amazon S3, Amazon VPC, Amazon Route 53, Amazon RDS, Amazon SQS.
+
+Well Architected:
+https://aws.amazon.com/architecture/well-architected/
+https://d1.awsstatic.com/whitepapers/architecture/AWS_Well-Architected_Framework.pdf
+
+General FAQs for Services:
+https://aws.amazon.com/faqs/
+
+Associate Exam is $150
