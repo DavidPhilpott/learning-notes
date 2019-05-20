@@ -31,3 +31,18 @@ Secure
 	All data including temporary files and network traffic is encrypted end-to-end.
 	No user data is exposed to the cloud platform.
 	Implements role-based access control.
+
+
+//Storage Vs. Compute//
+
+Shared-nothing architecture is the dominant system architecture in data warehousing. In shared-nothing, each query node has its own local disks. The tables are horizontally partitioned across nodes, with each node being responsbile for the rows on its local disks. Shared-nothing scales well for star-schema, as it is easy to join a small dimension table with a large fact table. As each node has the same resonsibilities and runs on the same hardware, the software produced is usually elegant and easy to reason about.
+
+However, shared-nothing tightly couples compute and storage. The homogenous nature of shared-nothing hardware can become an issue when dealing with the real world:
+Different Workloads:
+	A system built for bulk loading (high I/O bandwidth, low compute) will be a poor fit for complex queries (which need low I/O bandwidth and high compute). The hardware design will have to make trade-offs based on expected usage cases. 
+Membership Changes:
+	If the set of nodes changes (e.g. node failure, system resizing), the table partitioning will need to be re-calculated. This can result in a large amount of data being reshuffled. As the nodes perfoming the reshuffling are the same ones meant to be running queries, significant performance issues can occur.
+Online Upgrade:
+	As the system expects homogenous hardware and software, in-place upgrades made by squentially upgrading parts of the system are difficult.
+
+In an on-prem environment, these issues are tolerable as change and non-homogenaity can be made rare. However, in the cloud there is a wide variety of node types, frequent membership changes to dynamically scale resources, and online upgrades are preferred due to the benefit for fast development cycles. Therefore Snowflake seperates storage and compute. Compute is provided through a shared-nothing engine, and storage is provided by S3 (though any blob storage would work). The compute nodes cache table data to reduce network traffic. Rather than replicating the whole database (which may have large cold sections), the compute nodes use their local disks to hold temporary data and caches of hot data, bringing the performance close to a true shared-nothing system. This is called multi-cluster, shared-data architecture.
