@@ -1,0 +1,3 @@
+Snowflake is a cloud-agnostic data warehouse. It utilises a storage solutino on each cloud platform (e.g. S3 for AWS) to store the data.
+
+Whitepaper: http://info.snowflake.net/rs/252-RFO-227/images/Snowflake_SIGMOD.pdf
