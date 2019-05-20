@@ -47,3 +47,34 @@ Online Upgrade:
 
 In an on-prem environment, these issues are tolerable as change and non-homogenaity can be made rare. However, in the cloud there is a wide variety of node types, frequent membership changes in order to dynamically scale resources, and online upgrades are preferred due to the benefit for fast development cycles. Therefore, Snowflake seperates storage and compute. Compute is provided through a shared-nothing engine, and storage is provided by S3 (though any blob storage would work). The compute nodes cache table data to reduce network traffic. Rather than replicating the whole database (which may have large cold sections), the compute nodes use their local disks to hold temporary data and caches of hot data, bringing the performance close to a true shared-nothing system. This is called multi-cluster, shared-data architecture.
 
+
+//Architecture//
+
+Snowflake uses a service-oriented architecture where components communicate through a RESTful interface. The three architectural layers are:
+Data Storage
+	Uses Amazon S3 to store table data and query results.
+	S3 does not allow data to be appended or overwritten-in-part. However, it can yield parts of files. This drives the architecture of Snowflakes table files.
+	Tables are horizontally partitioned into large, immutable files which are equivalent to blocks or pages in other DB systems.
+	The values of each attribute or column are groupe together and heavily compressed in PAX scheme.
+	Each table file has a header which contains the offsets fof each column within the file. Therefore, queries only need to pull the file header and from there locate the columns they need.
+	S3 also stores the temp data produced by query operators once local disk space is full. Spilling the temp data prevents out-of-memory / out-of-disk errors.
+	Metadata such as catalog objects (which consists of which S3 files, statistics, locks, transaction logs, etc.) is stored in key-value as part of the Cloud Services Layer.
+Virtual Warehouses (VWs)
+	Handles query execution within clusters of virtual machines (EC2 instances).
+	Each cluster is presented as a VW, where the individual EC2s are 'worker nodes'. The user does not interact with worker nodes, and worker nodes are not shared between VWs. A user can have multiple VWs.
+	VWs are T-shirt sized from X-Small to XX-Large.
+	VWs are pure compute resources, and can be created, destroyed, or resized on demand without affecting database state.
+	Each VW has access to the same shared tables, without needing to copy data. Therefore, users can freely share and integrate data while maintaining private compute resources.
+	Each individual query runs on one VW, maintaining performance isolation, but each VW may run more than one concurrent query.
+	When a new query is submitted, each worker node created a worker process. The process never causes externally visible effects (as the table files are immutable). Any worker failures therefore can be easily contained and resovled with retries.
+	Each worker node maintains a cache of table data on the local disk. The cache is a collection of file headers and individual columns of files that have been used by the node in the past. The cache lives for the duration of the worker node, and is shared with concurrent and subsquent worker processes / queries. To improve efficiency, queries operating on given columns will be assigned to worker nodes with the relevant caching. In the case of worker loss, caches are not automatically replaced, instead replaced as data for future queries is fetched.
+	Some worker nodes may execute slower than others due to cloud issues (virtualisation issues, network cotention etc). When a node completes scanning it own input files, it requests additional files from other nodes (file stealing). If the victim node has many files left to gether, it will transfer ownership of that file for the current query. The stealer node will then fetch that file from S3 rather than the peer to prevent additonal load on stragglers.
+	The execution engine used by nodes is propietary. It is columnar, vetorized, and push-based. Columnar is more CPU efficient and has more opportunities for compression. Vectorised execution means that intermediate results do not have to be materialised, instead the data is processed as a pipeline in batches of a few thousand rows. Push-based refers to relational operators pushing their results to downstream operatiors, rather than waiting for them to pull the data, improving cache efficieny
+	As queries are executed against immutable files, there is no need for transaction management.
+Cloud Services
+	A collection of services managing the virtual warehouses, queries, transactions, and all associated metadata (e.g. database schemas, access control etc, usage statistics etc.)
+	Each service is long-lived and shared across multiple users, reducing unused administrative overhead.
+	Each service is replicated for high availability and scalability.
+	Queries are passed through the Cloud Services layer. Parsing, object resolution, access control, and plan optimisation is handled here. Snowflake attempts to keep the plan space small, increasing robustness at the cost of peak performance. Once the plan is complete, it is dsitrubted to all worker nodes working the query. As the query executes, Cloud Services tracks state to collect performance stats and detect node failures. All query information is stored for performance analysis and auditing.
+	Concurrency control is handled by the Cloud Services layer. ACID transactions are maintained using snapshot isolation, where all reads by a transaction see a consistent snapshot of the db made when the transaction started. As the S3 files are immutable, changes are made by replacing it with a different file including the changes. File additions and removals are tracked in the metadata (global key-value store). Snowflake also uses the snapshots to implement timetravel and cloning.
+	For pruning (not using data irrelevant to a query), Snowflake maintains the data distribution information for a given chunk (particuarly max and min values). These values can be used to determine if a chunk is relevant to a query. E.g. if chunk one has 1 though 3 and chunk 2 has 3 through 5, and the query requires x >= 4, only chunk 2 is needed. This is maintained for pure-relational columns and also for auto-detected sub-columns in semi-structured data.
