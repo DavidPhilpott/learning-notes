@@ -114,3 +114,11 @@ Security
 	Hierarchical key models constrain the amount of data each key protects. See image in whitepaper.
 	Snowflake also constrains duration of key lifetime. Keys are rotated reguarly (eg. monthly) with the old keys able to decrypt old data, but only the new keys able to encrypt new data. Less often (e.g. yearly) data encrypted with an old key is re-encrypted with a new key. When a key is no longer useful it is destroyed.
 	Snowflake uses AWS CloudHSM to generate, store, and use the root keys of the key hierarchy. CloudHSM is a set of 'hardware security modules'. The root keys never leave the HSM, as all functions requiring the root keys are computed within the HSM. They also generate keys at the account and table levels.
+
+
+//Related Work//
+
+Amazon has a number of DBaaS products, notably Amazon Redshift. Redshift uses a shared-nothing architecture, and therefore runs into the issues mentioned above. Snowflake also includes better tooling for interpreting semi-structured data.
+Goolge offers BigQuery. It has slight unorthodox SQL snytax, requires schemas, and is append only.
+MS SQL Data Warehouse (Azure SQL DW) has a capped degree of concurrency and does not ahve the same level of support for semi-structured querying.
+Systems such as MongoDB often only support complex queries through wrapper languages.
