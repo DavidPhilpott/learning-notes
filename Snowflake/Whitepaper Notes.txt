@@ -1,0 +1,33 @@
+//Overview//
+
+Snowflake is a 'database as a service' - a cloud based data warehouse (DW) aiming to take advantage of the flexibility, scalabilty, and avilability offered by cloud platforms.
+
+The advantages of the cloud can only be leveraged if the underlying software is designed to scale elastically over a pool of resources. In cotrast, pre-cloud DWs are designed to run on small, static clusters. 
+
+The nature of data has also changed. Previously, most data collected would come from business systems (CRM, ERP etc.) in a well-defined structure and volume. Today, a large share of data is from sources such as logs, web aps, social media, IoT etc. which are unpredictable in their volume and schema. Traditional DWs rely on fine-tuned data pipelines that rely on predictable data, and are therefore struggling with the shifting nature of data. Business have turned to big-data tools such as Hadoop, but these do not have the advantages of establish DW technology.
+
+Snowflake is built from the ground up to tackle both of these issues. The core features of Snowflake are:
+
+Database-as-a-service
+	Removes the requirement of users to set up the system on machines. 
+	Data must be landed in the cloud and aims for the data to be immediately queryable via the Snowflake UI or satndard protocols such as ODBC. 
+Relational
+	Snowlfake supports ANSI SQL and ACID transactions.
+Semi-Structured
+	Snowflake has built-in functions for traversing, flattening, and nesting semi-structured data.
+	It supports popular formats (e.g. JSON, Avro) out of the box.
+	Snowflake runs automatic schema discovery and stores data as columns, making queries over semi-structured data almost as fast as over relational data.
+Elastic
+	Storage and compute can be scaled dynamically without affecting availability or running queries.
+Highly Available
+	Snowflake tolerates full datacener failures. No downtime during upgrades.
+Durable
+	Snowflake uses cloning, undrop, and cross-region backups to provide data durability.
+Cost-Efficient
+	Snowflake aims to be compute-efficient.
+	All table data is compressed.
+	Users pay only for what storage and compute resources they actually use.
+Secure
+	All data including temporary files and network traffic is encrypted end-to-end.
+	No user data is exposed to the cloud platform.
+	Implements role-based access control.
