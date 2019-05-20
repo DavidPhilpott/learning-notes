@@ -108,4 +108,9 @@ Time Travel
 	This also alows Snowflake to have the UNDROP keyword, quickly restoring tables, schemas, or whole databases.
 	Cloning uses the CLONE keyword to create a new database that points directly to the original table files. This prevents any data copying. As changes are made to either database, the changes are moved to new table files and the databases drift apart.
 	Combination of CLONE and AT allows creation of database snapshot after-the-fact.
-
+Security
+	Snowflake uses two-factor authentication, client side encrypted data import and export, secure data transfer and storage, and role based access control for DB objects. Data is always encrypted before transfer and before being writen to local disk or S3. Therefore the data is secure end-to-end.
+	Snowflake uses AES 256-bit encryption with a hierarchical key model based on AWS CloudHSM. Encryption keys are automatically rotated and re-encrypted. Encryption and key management require no configuration or management.
+	Hierarchical key models constrain the amount of data each key protects. See image in whitepaper.
+	Snowflake also constrains duration of key lifetime. Keys are rotated reguarly (eg. monthly) with the old keys able to decrypt old data, but only the new keys able to encrypt new data. Less often (e.g. yearly) data encrypted with an old key is re-encrypted with a new key. When a key is no longer useful it is destroyed.
+	Snowflake uses AWS CloudHSM to generate, store, and use the root keys of the key hierarchy. CloudHSM is a set of 'hardware security modules'. The root keys never leave the HSM, as all functions requiring the root keys are computed within the HSM. They also generate keys at the account and table levels.
