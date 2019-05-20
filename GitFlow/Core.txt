@@ -1,0 +1,11 @@
+Gitflow is a framework for using github. Branches in GitFlow are arranged are five different concepts:
+Master:
+	This is the master branch and contains only code that has been actually released.
+Develop:
+	This branch is initially forked from master, and is where all other feature branches are forked from and merged to
+Feature:
+	These branches are forked from develop. Each one contains work on one feature, and is merged back to develop when the feature is complete. Features can be on while releases are prepared, but they will not be included in that release.
+Release:
+	This branch is forked from develop. Each time a release is a due, a release branch is created. All work in this branch is dedicated to making the release. Any bugfixes, documentation etc. is also merged back to the develop branch. When the release is ready, this branch is merged to the master. The master version number is increased. 
+Hotfix:
+	These branches are for critical fixes to released code. They are forked off of master (the only branch type to do so), and are merged back to master and develop when the fix is complete. The master sub-version number is increased.
