@@ -57,3 +57,12 @@ https://aws.amazon.com/xray/
 
 Monitoring
 https://docs.aws.amazon.com/health/latest/ug/cloudwatch-events-health.html
+
+AWS Lambda
+https://aws.amazon.com/lambda/
+
+AWS System Manager
+https://aws.amazon.com/systems-manager/
+
+Dynamic Config Compliance checking
+https://aws.amazon.com/blogs/aws/aws-config-rules-dynamic-compliance-checking-for-cloud-resources/
