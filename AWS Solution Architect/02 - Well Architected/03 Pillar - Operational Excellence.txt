@@ -61,5 +61,33 @@ Operational Readiness
 	Use simulations and trial days to test procedures. Can create temporary envs to do this.
 	When making changes to workload evaluation rules, have a plan for the system that no longer comply.
 
+
 //Core Elements - Operate//
+
+Operational success is measured by the achievement of KPIs. Understanding the operational health of a workload means issues can be resolved.
+
+This is achieved using two principles:
+Understanding Operational Health:
+	The team should be able to see the operational health of the workload easily.
+	Use metrics based on operational, technical, and business outcomes, and implement them in dashboards.
+	Send log data to CloudWatch and define a baseline to see what the normal operating patterns are.
+	Create system and business-level CloudWatch dashboards.
+	Can also pull logs into Amazon Elasticsearch (Amazon ES) and pipe to Kibana to create dashboards.
+	Health of the underlying AWS service is visible in the AWS Service Health Dashboard (SHD).
+	Can use AWS APIs to pull logging and metric data from services in third-party visualisations.
+Responding to Events:
+	Anticipate operational events (planned and unplanned). These can include sale promotions, deployments, component failures etc.
+	Use runbooks and playbooks to be consistent.
+	Defined alerts should have clear owners (teams or individuals) and escalation paths.
+	Know business impact of components and workloads. Allows prioritisation.
+	Perform root-cause-analysis after events and use to improve procedures and automation.
+	Automate responses using triggers, events, and monitoring data. Custom CloudWatch rules can be used for this to trigger AWS Lambda, AWS Simple Notification Service, Amazon EC Container Service tasks, or AWS System Manager. For example, crossing a usage threshold could trigger a CloudWatch alarm that triggers auto-scaling.
+	Use Amazon SNS to publish event notifications and inform people.
+	In case of failure, create a new instance and quarantine the failure for analysis.
+	Keep manual options available in case automation fails.
+
+
 //Core Elements - Evolve//
+
+
+
