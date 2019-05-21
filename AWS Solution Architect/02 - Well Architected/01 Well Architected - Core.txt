@@ -66,3 +66,22 @@ https://aws.amazon.com/systems-manager/
 
 Dynamic Config Compliance checking
 https://aws.amazon.com/blogs/aws/aws-config-rules-dynamic-compliance-checking-for-cloud-resources/
+
+Logging and Monitoring
+https://www.youtube.com/watch?v=ZaOR-ybLJF0&t=1232s
+
+Centralised logging in AWS
+https://aws.amazon.com/solutions/centralized-logging/
+
+Automating Security Event Response:
+https://www.youtube.com/watch?v=x4GkAGe65vE
+
+Cloudwatch Events
+https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/WhatIsCloudWatchEvents.html
+
+Tag an EC2 in response to an API event
+https://aws.amazon.com/blogs/security/how-to-automatically-tag-amazon-ec2-resources-in-response-to-api-events/
+
+Automate remediation actions for EC2
+https://aws.amazon.com/blogs/mt/automate-remediation-actions-for-amazon-ec2-notifications-and-beyond-using-ec2-systems-manager-automation-and-aws-health/
+
