@@ -7,7 +7,7 @@ It includes the ability to run system, gain operations insight, deliver business
 Operations teams understand the business and customer needs and create metric to measure fulfilment of requirements. They create procedures to respond to operational events. Operational Excellence evolves as business needs change.
 
 
-//Design principles//
+//Design Principles//
 
 Perform Operations as Code:
 	Define the entire workload (apps, infra, etc.) as code, and run updates with code.
