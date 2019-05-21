@@ -41,8 +41,18 @@ Operational priorities
 	AWS Cloud Compliance can educate teams on available controls for maintaining compliance.
 	AWS Trusted Advisor yields a set of core best practice checks.
 	A Well-Architected Review will measure architectures against AWS best practice.
-
-
+Design for Operations
+	Workload design should include how it will be deployed, updated, and operated.
+	Use VCS and a CI/CD pipeline. This can be done with AWS Developer Tools (AWS CodeCommit, AWS CodeBuild, AWS CodePipeline, AWS CodeDeploy, and AWS CodeStar).
+	Can use AWS CloudFormation to create version-controlled templates for cloud infrastructure.
+	Can use AWS CloudFormation and AWS Developer Tools to share design standards.
+	Use metadata tags to identify resources for operations activities (e.g. resource owner, lifecycle stage, env etc.). This will assist with organisation, cost attributing, access controls, and running automation.
+	Include observation with logging, instrumentation, and business & technical metrics. Need to know internal state of the system.
+	Can capture logs in Amazon CloudWatch, from AWS CloudTrail, AWS Lambda, and Amazon VPC Flow Logs. Can also inject logs from the application directly into Amazon CloudWatch using CloudWatch Event and the CloudWatch Logs API. For system-level logs, use CloudWatch Logs agent and AWS CLI.
+	Use these logs to create a system-wide view of the operational status, including dashboards (e.g. CloudWatch Dashboards).
+	Publish technical and business metrics - these will assist in understanding consumer behaviour.
+	AWS X-Ray can trace the execution of distributed applications, giving an end-to-end view of a request as it flows through the application.
+	When designing instrumentation, capture a broad set of information including changes in state, user activity, privilege access, and utilisation counters. Can filter for the most useful information later, per event.
 
 //Core Elements - Operate//
 //Core Elements - Evolve//
