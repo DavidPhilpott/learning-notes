@@ -53,9 +53,13 @@ Design for Operations
 	Publish technical and business metrics - these will assist in understanding consumer behaviour.
 	AWS X-Ray can trace the execution of distributed applications, giving an end-to-end view of a request as it flows through the application.
 	When designing instrumentation, capture a broad set of information including changes in state, user activity, privilege access, and utilisation counters. Can filter for the most useful information later, per event.
+Operational Readiness
+	Need a consistent process (including checklists) to know when you are ready to go live with a workload.
+	Need to have runbooks prepared that document routine activities, and playbooks to guide issue resolution.
+	Automate these runbook / playbook activities to reduce human error. Use resource tags to selectively execute. Automated scripts can also respond to triggers and events. Can do this using AWS Systems Manager (Run Command), Systems Manager Automation, and AWS Lambda.
+	Automate workload configuration testing by creating a baseline in AWS Config, and checking that configurations adhere to those rules.
+	Use simulations and trial days to test procedures. Can create temporary envs to do this.
+	When making changes to workload evaluation rules, have a plan for the system that no longer comply.
 
 //Core Elements - Operate//
 //Core Elements - Evolve//
-
-
-
