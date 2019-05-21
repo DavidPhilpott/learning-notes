@@ -1,0 +1,51 @@
+//Operational Excellence//
+
+Operational Excellence is one of the Well Architected Framework pillars.
+
+It includes the ability to run system, gain operations insight, deliver business value, and improve supporting processes and procedures.
+
+Operations teams understand the business and customer needs and create metric to measure fulfilment of requirements. They create procedures to respond to operational events. Operational Excellence evolves as business needs change.
+
+
+//Design principles//
+
+Perform Operations as Code:
+	Define the entire workload (apps, infra, etc.) as code, and run updates with code.
+	Script operations procedures to run based on triggers and responses to events.
+	Eliminate human error and enable consistency.
+Annotated Documentation:
+	Use cloud features to automatically generate annotated documentation.
+	This documentation can be used as an input to other code and scripts.
+Make Frequent, Small, Reversible Changes:
+	Design workloads so that the components can be regularly updated.
+	Make small changes that can be easily reversed.
+Refine Operations Procedures Frequently:
+	As the workload evolves, evolve the procedures.
+	Simulate procedures regularly.
+Anticipate Failure:
+	Perform early exercises to test failure protocols.
+Learn From All Operational Failures:
+	Incorporate all lessons learned from operational events and failures.
+
+
+//Core Elements - Prepare//
+
+Operational teams must understand the workloads and their expected behaviour. Workloads and components must be designed to provide information on their status and performance.
+
+To properly prepare, three elements must be considered:
+Operational priorities
+	Teams need to understand the entire workload, their role in it, and how they relate to business goals.
+	This allows them to prioritise.
+	These priorities shape focus on operations improvement.
+	Include compliance requirements in prioritisation.
+	AWS Cloud Compliance can educate teams on available controls for maintaining compliance.
+	AWS Trusted Advisor yields a set of core best practice checks.
+	A Well-Architected Review will measure architectures against AWS best practice.
+
+
+
+//Core Elements - Operate//
+//Core Elements - Evolve//
+
+
+
