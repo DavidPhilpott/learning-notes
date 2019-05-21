@@ -89,5 +89,21 @@ Responding to Events:
 
 //Core Elements - Evolve//
 
+Evolution is the cycle of continuous improvement over time. Frequent small changes based on lessons learned.
 
-
+To evolve, two steps are needed:
+Learning From Experience:
+	Provide time for analysis, post-mortems, and experimentation.
+	Aggregate all logs of operations activities, workloads, and infrastructure to get a detailed, holistic view. Work to identify trends, correlate events, and identify patterns. These will show area of improvement.
+	Create duplicates of environments for risk-free experimentation. Test the theories from analysis in these envs.
+	Use CloudTrail to track API activity across accounts. E.g. Track AWS Dev Tool deployment activities.
+	Build dashboards to visualise log information. Kibana is supported out-of-the-box if the logs are ingested into AWS ES.
+	Can export all CloudWatch data to Amazon S3, analyse with Amazon Athena, and visualise with Amazon Quicksight.
+	Hook in desired third-party analysis via APIs.
+	Don't just focus on improving prod.
+Share Learnings
+	Share lessons learned with other teams. 
+	Keeping everything as code allows for easy sharing. Use IAM to control access to resources you want to share.
+	AWS CodeCommit repos can be used to share code and documentation.
+	Share strong automated procedures and compute standards by sharing AMIs (Machine images) and allowing other users / accounts to use your Lambda functions.
+	Share infrastructure designs as CloudFormation templates.
