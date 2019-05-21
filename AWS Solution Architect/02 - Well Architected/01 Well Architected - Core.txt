@@ -35,3 +35,25 @@ https://docs.aws.amazon.com/AmazonS3/latest/dev/optimizing-performance.html
 https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSPerformance.html
 https://www.youtube.com/watch?v=n28lDDdlnVg
 https://www.youtube.com/watch?v=mZy6E2I5Rek
+
+Trusted Advisor
+https://aws.amazon.com/premiumsupport/technology/trusted-advisor/
+
+AWS Developer Tools
+https://aws.amazon.com/products/developer-tools/
+
+CI in AWS
+https://www.youtube.com/watch?v=TDalsML3QqY
+https://aws.amazon.com/getting-started/projects/set-up-ci-cd-pipeline/
+
+CloudWatch
+https://aws.amazon.com/cloudwatch/getting-started/
+
+Tagging Resources
+https://aws.amazon.com/answers/account-management/aws-tagging-strategies/
+
+Amazon X-Ray
+https://aws.amazon.com/xray/
+
+Monitoring
+https://docs.aws.amazon.com/health/latest/ug/cloudwatch-events-health.html
