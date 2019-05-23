@@ -1,0 +1,14 @@
+//Data Model Types//
+
+Information Reference Model (L1 & L2)
+	Enterprise-wide view of information and data.
+	Defined in terms of subject data.
+Conceptual Data Model (L3)
+	High level view of key entities and concepts in use in the company covering all domains.
+	Defined in terms of key entities and relationships.
+Logical Data Model (L4)
+	Complete view of data for a solution or interface / service.
+	Normalised or dimensional depending on solution type.
+	Independent of technology or platform.
+Physical Data Model (L5)
+	Implementation schema for a specific technology / platform.
