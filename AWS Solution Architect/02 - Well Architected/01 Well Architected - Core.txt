@@ -24,6 +24,11 @@ https://d0.awsstatic.com/whitepapers/Security/AWS%20Security%20Whitepaper.pdf
 https://aws.amazon.com/whitepapers/aws-security-best-practices/
 https://d0.awsstatic.com/whitepapers/compliance/AWS_Risk_and_Compliance_Whitepaper.pdf
 https://docs.aws.amazon.com/kms/latest/developerguide/overview.html
+https://www.youtube.com/watch?v=SGntDzEn30s&feature=youtu.be
+https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html
+https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2_instance-profiles.html
+https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp.html
+https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html
 
 Additional Reliability Sources:
 http://d0.awsstatic.com/whitepapers/managing-your-aws-infrastructure-at-scale.pdf
