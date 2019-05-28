@@ -99,3 +99,9 @@ https://docs.aws.amazon.com/lambda/latest/dg/with-sns-example.html
 Easy auth of Lambda funcs
 https://aws.amazon.com/blogs/compute/easy-authorization-of-aws-lambda-functions/
 
+Assuming a role in the AWS CLI with MFA
+https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-role.html
+
+Removing unusaed crednetials
+https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#remove-credentials
+
