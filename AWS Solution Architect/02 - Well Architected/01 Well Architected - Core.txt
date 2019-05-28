@@ -105,3 +105,11 @@ https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-role.html
 Removing unusaed crednetials
 https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#remove-credentials
 
+Set up guardduty
+https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_settingup.html
+
+Get started with cloudwatch logs
+https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_GettingStarted.html
+
+Using athena to query cloudwatch logs
+https://docs.aws.amazon.com/athena/latest/ug/cloudtrail-logs.html
