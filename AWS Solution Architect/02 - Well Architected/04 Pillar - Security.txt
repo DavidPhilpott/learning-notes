@@ -48,4 +48,20 @@ Fine-Grained Authorisation
 	Using the principle of least-privilege means identities can only perform the minimal set of functions necessary (while still being efficient).
 	This limits the impact of inappropriate use of credentials or anauthorised access.
 	This is done via IAM roles and policies - a role is an IAM principal assumed by a user or AWS service, and is given temporary credentials to use a set of permissions; policies are documents that state one or more permissions, and are attached to users, groups, and roles.
-	AWS organisations can be used to centrally managed AWS accounts. The servies can group accounts in organisationa; units (OUs), and service control policies (SCPs) can be used to centrally control AWS services across multiple accounts. 
+	AWS organisations can be used to centrally managed AWS accounts. The services can group accounts in organisations; units (OUs), and service control policies (SCPs) can be used to centrally control AWS services across multiple accounts. 
+
+//Detective Controls//
+
+Detective controls identify potential security threats and incidents. There are different types, e.g. performing an asset inventory vs. auditing information system controls. These controls enable the organisation to identify and understand anomalous activity.
+
+Capture and Analyse Logs
+	In the cloud, all asset information can be gathered via programmatic API calls.
+	Native APO features for collecting, filtering, and analysing logs, which can also be stored in buckets.
+	Best practice is to customise AWS CloudTrail and app-specific logging so that logging is centralised for storage and analysis.
+	Can use Cloudwatch logs to collect log files from Amazon EC2, AWS CloudTrail, Amazon Route 53, and other services.
+	External logging agents can be reliably installed via AWS CloudFormation, AWS Systems Manger, and Amazon EC2 user data.
+	Need to be able to extract meaningful insight from logs and event data gathered. See monitoring section of Reliability pillar. It is not enough just to generate a store logs - the end-to-end design must result in them providing useful insight.
+	Amazon GuardDuty can monitor events from AWS CloudTrailer, Amazon VPC Flow Logs, and DNS Logs and intelligently identify malicious or unauthorised activity.
+	Amazon S3 and Glacier are useful for long-term log archiving.
+	Amazon Athena can analyse logs.
+
