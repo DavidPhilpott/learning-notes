@@ -113,3 +113,12 @@ https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_GettingStarted.html
 
 Using athena to query cloudwatch logs
 https://docs.aws.amazon.com/athena/latest/ug/cloudtrail-logs.html
+
+Continuous compliance using AWS config
+https://www.youtube.com/watch?v=QbA0859qNI8
+
+Cloudwatch events
+https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/WhatIsCloudWatchEvents.html
+
+Amazon inspector
+https://aws.amazon.com/inspector/
