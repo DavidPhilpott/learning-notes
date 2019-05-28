@@ -65,3 +65,10 @@ Capture and Analyse Logs
 	Amazon S3 and Glacier are useful for long-term log archiving.
 	Amazon Athena can analyse logs.
 
+
+//Integrate Auditing Controls with Notification and Workflow//
+
+Security teams rely on collecting logs and analysing them using tools to discover events. This is unsustainable with the volume of information from modern systems. Should integrate the flow of security events into a notification / ticketing system, allowing the events to be properly routed, alerted, and escalated. This should be applied to log messages from user activity and network events, as well as changes to infrastructure itself. Routing events and information from potentially unwanted changes into a proper workflow can be done using Amazon CloudWatch events. Build rules that parse events, transform them, and push them to other services, e.g. Lambda, SNS etc.
+CI / CD pipelines should be configured to test for security issues. Amazon Inspect can perform configuration assessment for common vulnerabilities and automate the notification of defects, and the results can be surfaced programatically.
+
+
