@@ -44,8 +44,8 @@ Protecting AWS Credentials:
 	Access keys can be generated to allow CLI access. These should be carefully guarded and rotated.
 	EC2 and STS can be assigned roles, which hosted software can use to assume roles for authentication.
 
-//Fine-Grained Authorisation//
-
-Using the principle of least-privilege means identities can only perform the minimal set of functions necessary (while still being efficient). This limit the impact of inappropriate use of credentials or anauthorised access. This is done via IAM roles and policies - a role is an IAM principal assumed by a user or AWS service, and is given temporary credentials to use a set of permissions; policies are documents that state one or more permissions, and are attached to users, groups, and roles.
-
-AWS organisations can be used to centrally managed AWS accounts. The servies can group accounts in organisationa; units (OUs), and service control policies (SCPs) can be used to centrally control AWS services across multiple accounts. 
+Fine-Grained Authorisation
+	Using the principle of least-privilege means identities can only perform the minimal set of functions necessary (while still being efficient).
+	This limits the impact of inappropriate use of credentials or anauthorised access.
+	This is done via IAM roles and policies - a role is an IAM principal assumed by a user or AWS service, and is given temporary credentials to use a set of permissions; policies are documents that state one or more permissions, and are attached to users, groups, and roles.
+	AWS organisations can be used to centrally managed AWS accounts. The servies can group accounts in organisationa; units (OUs), and service control policies (SCPs) can be used to centrally control AWS services across multiple accounts. 
