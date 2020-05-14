@@ -1,0 +1,4 @@
+The ELK stack is a set of open source tools by Elastic that serve to ingest, store, and visualise data. The technology specifcally focuses on logs and operational metrics.
+The components of the ELK stack are:
+ElasticSearch - highly scalable full-text search and analytics engine. Can store, search, and analyse large volumes in real time. In the context of operations, this includes inspecting logs.
+Logstash - Server side data ingestion pipeline. Plugin based. Parse and transform data as it enters the pipeline
