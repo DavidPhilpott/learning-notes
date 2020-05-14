@@ -1,0 +1,5 @@
+AWS Cognito is a managed service for authenticating user with applications and other AWS services.
+
+Cognito is formed of two parts:
+1) User pools, which determine identity and can be used to authenticate users with apps and websites.
+2) Identity pools, with authorise identified users with AWS resources.
