@@ -1,0 +1,2 @@
+Get a command in bash to exit out and fail script if it fails (so one step in deployment  failing causes the whole thing to fail).
+-euo pipefail
