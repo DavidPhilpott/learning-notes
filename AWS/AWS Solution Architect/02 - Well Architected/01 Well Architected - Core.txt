@@ -24,6 +24,11 @@ https://d0.awsstatic.com/whitepapers/Security/AWS%20Security%20Whitepaper.pdf
 https://aws.amazon.com/whitepapers/aws-security-best-practices/
 https://d0.awsstatic.com/whitepapers/compliance/AWS_Risk_and_Compliance_Whitepaper.pdf
 https://docs.aws.amazon.com/kms/latest/developerguide/overview.html
+https://www.youtube.com/watch?v=SGntDzEn30s&feature=youtu.be
+https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html
+https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2_instance-profiles.html
+https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp.html
+https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html
 
 Additional Reliability Sources:
 http://d0.awsstatic.com/whitepapers/managing-your-aws-infrastructure-at-scale.pdf
@@ -94,3 +99,26 @@ https://docs.aws.amazon.com/lambda/latest/dg/with-sns-example.html
 Easy auth of Lambda funcs
 https://aws.amazon.com/blogs/compute/easy-authorization-of-aws-lambda-functions/
 
+Assuming a role in the AWS CLI with MFA
+https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-role.html
+
+Removing unusaed crednetials
+https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#remove-credentials
+
+Set up guardduty
+https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_settingup.html
+
+Get started with cloudwatch logs
+https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_GettingStarted.html
+
+Using athena to query cloudwatch logs
+https://docs.aws.amazon.com/athena/latest/ug/cloudtrail-logs.html
+
+Continuous compliance using AWS config
+https://www.youtube.com/watch?v=QbA0859qNI8
+
+Cloudwatch events
+https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/WhatIsCloudWatchEvents.html
+
+Amazon inspector
+https://aws.amazon.com/inspector/

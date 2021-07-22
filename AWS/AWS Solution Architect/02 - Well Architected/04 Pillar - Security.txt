@@ -1,0 +1,74 @@
+//Security//
+
+Security is one of the pillars of the AWS Well Architected framework. It is the ability to protect systems, assets, and information, as well as identify ways to mitigate risk, so that business value can be delivered. 
+
+//Design Principles//
+
+Strong Identity Foundation:
+	Principle of least privilege.
+	Enforce separation of duties for each interaction with AWS resources.
+	Centralise privilege management.
+	Reduce use of long-term credentials.
+Enable Traceability:
+	Monitor, audit, and alert the actions and changes in the environment in real time.
+	Integrate logs and metrics with systems to automate responses.
+Security at all Layers:
+	Don't focus on protecting only one layer (e.g. outer layer).
+	Defence-in-depth, applied to all layers (edge network, VPC, load balancer, instance, OS, application).
+Automate Best Practices:
+	Automated mechanism respond faster, with less errors, and can be scaled better than human intervention.
+	Design security controls and secure architecture as code, stored in version control.
+Protect Data in Transit and at Rest:
+	Classify data into sensitivity levels.
+	Use encryption, tokenisation, and access control as needed.
+Keep People Away From Data:
+	Develop tools that eliminate the need to directly access or process data.
+	Reduced risk of loss or modification.
+Prepare for Security Events:
+	Maintain an incident management process.
+	Run regular simulations.
+	Develop automated tools for detection, investigation, and recovery.
+
+
+//Identity and Access Management//
+
+Identity and access management is a cornerstone of security, ensuring that only authorised users are able to access resources, services, and data. Define users, groups, services, and roles in the account and build out policies that align with these. Implement strong credential management.
+
+Protecting AWS Credentials:
+	Initial AWS account identity (root) has access to all AWS services and resources in that account.
+	The root identity should establish less-privileged users and role-based access.
+	Root should not be used for everyday tasks, and should be carefully protected (MFA, no access keys etc.).
+	IAM users and groups should be created for long-term identity management.
+	Can also use federated login and tie back to an organisation's OAUTH.
+	Set a password requirement for minimum length and complexity, as well as rotation.
+	Access keys can be generated to allow CLI access. These should be carefully guarded and rotated.
+	EC2 and STS can be assigned roles, which hosted software can use to assume roles for authentication.
+
+Fine-Grained Authorisation
+	Using the principle of least-privilege means identities can only perform the minimal set of functions necessary (while still being efficient).
+	This limits the impact of inappropriate use of credentials or anauthorised access.
+	This is done via IAM roles and policies - a role is an IAM principal assumed by a user or AWS service, and is given temporary credentials to use a set of permissions; policies are documents that state one or more permissions, and are attached to users, groups, and roles.
+	AWS organisations can be used to centrally managed AWS accounts. The services can group accounts in organisations; units (OUs), and service control policies (SCPs) can be used to centrally control AWS services across multiple accounts. 
+
+//Detective Controls//
+
+Detective controls identify potential security threats and incidents. There are different types, e.g. performing an asset inventory vs. auditing information system controls. These controls enable the organisation to identify and understand anomalous activity.
+
+Capture and Analyse Logs
+	In the cloud, all asset information can be gathered via programmatic API calls.
+	Native APO features for collecting, filtering, and analysing logs, which can also be stored in buckets.
+	Best practice is to customise AWS CloudTrail and app-specific logging so that logging is centralised for storage and analysis.
+	Can use Cloudwatch logs to collect log files from Amazon EC2, AWS CloudTrail, Amazon Route 53, and other services.
+	External logging agents can be reliably installed via AWS CloudFormation, AWS Systems Manger, and Amazon EC2 user data.
+	Need to be able to extract meaningful insight from logs and event data gathered. See monitoring section of Reliability pillar. It is not enough just to generate a store logs - the end-to-end design must result in them providing useful insight.
+	Amazon GuardDuty can monitor events from AWS CloudTrailer, Amazon VPC Flow Logs, and DNS Logs and intelligently identify malicious or unauthorised activity.
+	Amazon S3 and Glacier are useful for long-term log archiving.
+	Amazon Athena can analyse logs.
+
+
+//Integrate Auditing Controls with Notification and Workflow//
+
+Security teams rely on collecting logs and analysing them using tools to discover events. This is unsustainable with the volume of information from modern systems. Should integrate the flow of security events into a notification / ticketing system, allowing the events to be properly routed, alerted, and escalated. This should be applied to log messages from user activity and network events, as well as changes to infrastructure itself. Routing events and information from potentially unwanted changes into a proper workflow can be done using Amazon CloudWatch events. Build rules that parse events, transform them, and push them to other services, e.g. Lambda, SNS etc.
+CI / CD pipelines should be configured to test for security issues. Amazon Inspect can perform configuration assessment for common vulnerabilities and automate the notification of defects, and the results can be surfaced programatically.
+
+
