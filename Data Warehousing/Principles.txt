@@ -1,0 +1,50 @@
+//Data Ingestion//
+
+Source Once, Use Many Times	
+	Want to reuse data and future-proof.
+	Get an agreement for a comprehensive data feed from the source, as well as periodic updates.
+	Include all records, entities, and attributes at the lowest level of granularity.
+	Data must come from the master source, not an intermediate (e.g. another data warehouse).
+One Way In
+	Data feeds can arrive in different ways, but there must be only one pathway for data to enter the warehouse.
+	Data must not be able to get landed in downstream stages.
+No Data Without Metadata
+	No data feeds accepted without appropriate metadata.
+	Metadata must be provided for datasets / elements that have been created from the received data.
+Retain-As-Received
+	Store data feeds as-is (e.g. no filtering, transformation, aggregation etc.)
+
+
+//Data Processing//
+
+Process All Data
+	All incoming data must be loaded, processed, and made available for provisioning.
+Store Record-Level Data
+	Data must be stored at the lowest level of granularity available.
+	Data must be structured so it is flexible enough to meet current and future requirements.
+	Storing granular data offers the most flexibility.
+Maintain Change History
+	Change history must be maintained for the data elements.
+	When an element of a record changes, the old version must be retained (i.e. create a new row).
+	In some cases, change history is not required and the element can be overwritten, but this is not recommended.
+	Alternatively, there may be situations where just the current and previous values are needed.
+Create Consistent Keys
+	Surrogate keys (system generated keys) must be assigned when data is cleaned and integrated.
+	These keys must be retained, unchanged, in all downstream layers.
+	This enables data-linking and tokenisation of PII.
+
+
+//Data Provision Principles//
+
+One Way Out
+	Consumer access must be provided in a controlled way.
+	Technical users, such as data scientists, can be given access to underlying layers.
+Share Data
+	Data from various feeds should be integrated into various views and shared with authorised users.
+Common Controlled Vocabulary
+	All technical and business users must have a common understanding of vocabulary.
+	Terms must have a unique, non-ambiguous definition.
+	Common vocabulary should be maintained centrally by a designated team.
+Legal and Regulatory Compliance
+	Data stores and processes must comply with all laws, policies, regulations, and standards.
+	They must also comply with any restrictions imposed by the data supplier, commonly through a service level agreement (SLA) or memorandum of understanding (MoU).

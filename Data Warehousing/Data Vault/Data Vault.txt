@@ -1,0 +1,56 @@
+Tables:
+
+	Hubs (H, HUB, HB)
+		Unique list of business keys.
+		Must have at least one Business Key driven field.
+		Cannot contain multiple distinct business keys (e.g. Account Number and Invoice - these are distinct and should have their own hubs with a link joining them).
+		Should have at least one satellite. Without it, hubs have no context.
+		Business key must stand alone - it must be system generated (surrogate key) or be the single basis for finding the information in the source system (natural key).
+		Load date can be a field, but must only be an attribute of the hub not a natural key.
+
+
+	Links (L, LINK, LNK)
+		Unique list of relationships / interactions between two or more business keys.
+		Contains two or more imported primary keys. Never depends on another link.
+		Can have two keys imported from the same hub to show a heirachical rleaitionship. Can only do this once per link - need to have mutiple links for deeper heirachy. Also need a satellite to contain information on when the relationship is valid.
+		Load date can only be an attirbute of the link.
+		Composite key (combination of keys from parent hubs) must be unique.
+		Link can have a satellite.
+		Links never contain begin or end dates - temporal validity is stored in a satellite.
+		A link must represent, at most, 1 instance of a relationship for all time,.
+
+	Satellites (S, SAT)
+		Purpose is to store data over time.
+		Delta driven descriptive information (Data that changes over time).
+		Driven by 'change data capture' and are split by rate of change or type (classification of data).
+		Cannot be attached to more than one parent hub or link.
+		Must have load-date time stamp as part of its primary key.
+		Must contain record source for traceability.
+		Must contain at least one descriptive attribute for the parent hub / link.
+		May contain system / business rule generated attributes.
+
+		Multi Active Satellite:
+			Contains multiple child records which have no natural business key e.g. list of multiple active addresses for an employee, as the addresses do not have a properly formed unique business key. 
+
+		Effectivity Satellite
+			Holds temporal views of a hub or link i.e. contains a start and end date that describe when a relationship (link) or business key (hub) was in effect.
+			Never allowed to be updated physically.
+
+	Stand Alone Tables
+		Reference tables (e.g. calendar and time).
+		Do not have any delats ever.
+		Contents immutable and agreed by business globally.
+
+	Point in Time (PIT, PT)
+		Holds primary / natural keys from a single hub or link (and its surrounding satellites).
+		Contains snapshots of keys and key structures.
+
+	Bridge (B, BRIDGE, BR)
+		Contains combination of keys across multiple hubs and links.
+		Base level fact table.
+		Generally not temporal in nature.
+
+Fields
+
+
+
