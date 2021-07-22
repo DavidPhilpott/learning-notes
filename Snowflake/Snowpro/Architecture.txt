@@ -66,3 +66,5 @@ Virtual Private Snowflake
 	Additional operational visibility
 
 First three are multi tenant (multiple customers in one snowflake aws account)
+
+Can replicate data across multiple regions and cloud providers 
