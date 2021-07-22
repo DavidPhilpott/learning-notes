@@ -1,0 +1,68 @@
+Full cloud data platform, built from the ground up
+SAAS
+Both structured and semi-structured
+ANCI SQL Compliant
+Self tuning and healing 
+Don't deal with partitioning and vacuuming etc
+AWS, Azure, GCP
+Pay for what you use
+Live and secure data sharing
+
+OLAP System - Online Analytical Process
+Not for OLTP - Online Transaction Processing
+
+One single storage location for all data, so no silo'ed data marts
+One copy of data, supporting multiple workloads
+Unlimited performance and scale
+Secure and governed access to all service
+near zero maintenance
+
+compute scalable on the fly
+
+Three layers
+Services - infra manager, optimiser, metadata manager, security
+Multi cluster compute - virtual warehouse running queries
+Centralised storage - where data is stored
+then cloud agnostic layer as interface to big 3 cloud
+
+Snowflake deploys into a VPC (or other cloud equivalent) managed by Snowflake
+
+JDBC / ODBC connectors and more, python go etc.
+
+configure each warehouse differently if we want
+can read and write simultaneously
+
+Increase size of warehouse to deal with heavier workflows
+Increase number of warehouses (multi cluster) to deal with many workflows concurrently
+
+Clone without duplicating storage
+
+Four editions
+Standard
+	Data Warehouse with SQL
+	Data sharing across regions and clouds
+	Business support in hours
+	1 day time travel
+	Always on encryption (in transit and at rest)
+	Warehouses
+	Federated auth and SSO
+	Database replication
+Enterprise
+	Multi cluster warehouses
+	90 days time travel
+	annual encryption re-key
+	materialized views
+	AWS privatelink (for extra fee)
+Business Critical
+	HIIPA support (healthcare)
+	PCI compliant
+	Encryption everywhere
+	Tri secret secure using customer managed keys (AWS)
+	Stronger sec policy
+	Data failover and failback
+Virtual Private Snowflake
+	Customer dedicated VMs with Encryption keys in memory
+	Customer dedicated metadata store
+	Additional operational visibility
+
+First three are multi tenant (multiple customers in one snowflake aws account)
