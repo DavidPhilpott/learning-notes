@@ -1,6 +1,6 @@
 Full cloud data platform, built from the ground up
 SAAS
-Both structured and semi-structured
+Both structured and semi-structured data
 ANCI SQL Compliant
 Self tuning and healing 
 Don't deal with partitioning and vacuuming etc
@@ -68,3 +68,184 @@ Virtual Private Snowflake
 First three are multi tenant (multiple customers in one snowflake aws account)
 
 Can replicate data across multiple regions and cloud providers 
+
+Logical data organisation
+databases and schemas organise data
+a database is a grouping of schemas
+a schema is a grouping of other objects like tables and views
+Account is part of object model
+Account
+	Databases
+		Schemas
+			Tables / views etc.
+
+
+All objects are indvidually securable
+
+Users perform operations on objects "privileges" that are granted to "roles"
+
+Objects:
+Account is top level
+User
+Role
+Virtual Warehouse
+Resource monitor
+Database
+	Schema
+		Table
+		View
+		Stored Procedure
+		UDF
+		Stage
+		File Format
+		Pipe
+		Stream
+		Task
+		Sequence
+
+Aim to have a higher level object - the organisation, to manage many accounts
+
+Table Types:
+Four types
+
+Permanent
+	persist until dropped
+	highest level of data protection and recovery
+	default
+	90 days time travel (with enterprise)
+	Fail-safe
+Temporary
+	Persist and tied to single session - single login session 
+	Used for transitory ETL / ELT
+	Single user - others can't hit it
+	Time travel is 0 or 1 day
+	Not fail-safe
+Transient
+	Halfway between permanent and temporary
+	Persist until dropped
+	Multiple users can hit it
+	Use for data that needs to persist, but doesn't have data retention / recovery of permanents
+	0 or 1 day time travel
+	Not fail-safe
+	Status is applicable to database, schema, and tables
+External
+	Persist until removed
+	Works 'over' data lake, enable queries against data stored externally
+	Persist until removed
+	Read-only
+	Window onto S3 data (for example)
+	No time travel
+	No fail-safe 
+
+Fail safe is an admin backup feature. Enables restoration of data for 7 days after time travel has expired. Can only get at it via Snowflake admins.
+
+Views
+Standard
+	Default type
+	Named definition of a query
+	Defined as a select statement
+	Executes as owning role (the role that created it)
+	Undering DDL can be pulled
+Secure View
+	Same as standard, but only available to auth users (aside from owning role)
+	Query optimiser doesn't use some techniques that standard views can
+	Can't get at underlying DDL (unless actual owning role)
+	Less perfomant than a standard
+Materialised View
+	Behaves like a table
+	Query results are stored
+	Auto refreshed
+		Compute managed silently by Snowflake and charged back along with storage
+Secure Materialised View
+	Secure features combined with materialised features
+	Less performant and incurs storage / compute charge
+
+CREATE VIEW - to make views
+SHOW VIEW - for view attributes like is it a secure view
+SELECT get_ddl('view', 'view_name') - get the DDL used to generate the view. On a secure view, need to be the role that made the view to get this 
+
+CREATE secure materialized VIEW - add in the keywords to determine the type
+DROP VIEW - to drop view
+DROP materialized VIEW - to drop materialized view (don't need anything extra for the secure bit)
+
+Cloud Services Layer
+
+Storage Layer
+Compute Layer
+Cloud Services Layer (Services Layer or Global Services Layer)
+
+Services Layer - brains of the solution. Coordinates all actions, runs on virtual warehouses that are hidden from the user
+	e.g. don't need a warehouse set to run 'show users' or 'show databases', create
+	tables etc.
+	Will need a warehouse to actually operate on data
+Management of transactions, query optimisations, security, availability, metadata
+
+Management
+	Tracks of all data storage in Snowflake
+		Tables and data, micropartitions, versioning, time travel etc.
+	Manages compute for storage
+	Applies patches etc.
+Optimiser
+	SQL Optimiser
+	Automatic JOIN order optimiser
+	Stats gathering
+	Pruning using micro-partitions
+Security
+	Auth
+	Access control for roles and users
+	Access control for sharing data
+	Encryption and key management
+Metadata Management
+	Stores metadata as data is loaded into the system
+	Handles queries that need metadata only
+	Used for time travel and cloning
+	All other Snowflake architecture needs metadata
+	Examples include min / max on column, records in a table etc.
+
+Data sharing
+
+Data providers
+Data consumers
+Both snowflake customers with their own snowflake accounts
+
+Consumer sees the incoming data from the provider as databases and schemas in their own snowflake.
+
+Secure, direct data sharing (but will have other data sharing tech - public datamarketplace, private data exchange - will be built on the direct data sharing)
+
+Instant live data sharing - no copying across accounts. Instant access, query immediately
+Can hit from inside snowflake, or via a snowflake connector with an external tool
+
+Share with unlimited consumers
+Consumers can have unlimited shares incoming
+
+Providers - Outbound Share
+Consumers - Inbound Share
+so unlimited outbound and inbound shares per account
+
+Can have reader account - want to share with someone who doesn't have a snowflake account
+The provider sets up the reader account and manages it, and then gives the consumer access
+
+Consumers and their accounts use their own warehouses to operate on shared data, so no cost to the provider for sharing data and having consumers query it
+In the reader account model, the provider owns the reader account so they will get the cost 
+
+Share is a securable object. Can have permissions etc. Revoke share at any time, and can revoke from specific consumers
+
+Share tables, secure views, secure UDFs
+Read only - consumer can't affect provider data
+
+Consumer could copy all shared data from provider like this - they have control of the data once they query it
+
+As a consumer, an inbound share can't be passed on to another consumer
+Can't do a clone operation on shared objects
+
+Need standard edition only to do data sharing
+
+Have to share at the grain of table / secure view - so give perms on the relevant DBs, schemas etc. but you also have to select the specific tables / sec. views
+
+SQL predicates and secure views enable row level security per consumer
+Have a consumer ID column in the source data table. Have a table that maps consumer ID to consumer account name
+Then the secure view can be built off of the join between those two tables where the id is equal to CURRENT_ACCOUNT()
+CREATE SECURE VIEW shared_data
+AS SELECT * FROM partner_data pd
+JOIN acct_map am on pd.id = am.id
+AND am.acct_name = CURRENT_ACCOUNT();
