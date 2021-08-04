@@ -1,0 +1,11 @@
+Managed ETL
+Serverless - point it at ETL jobs and press 'run'
+Crawlers with schema inference. Discover datasets, filetypes, schema. Stored in centralised metadata catalogue
+Generates scripts needed to ETL from source to target.
+
+e.g. Data in semi structured format in JSON in S3, and more data in RDS. Then move it into a redshift database.
+Point crawlers at the RDS and S3. They will figure out the schemas etc. and store it as tables in the data catalogue.
+Then point Glue at those metadata tables, which will auto generate the scripts to flatten the data.
+
+Graph based user interface in console for editing scripts, or just write them.
+
